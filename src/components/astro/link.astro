@@ -1,0 +1,27 @@
+---
+const { href, class: className } = Astro.props;
+---
+
+<a href={href} class={className}>
+  <slot />
+</a>
+
+<style>
+  a {
+    font-size: 1rem;
+    color: cyan;
+    font-family: monospace;
+    font-weight: 700;
+    text-decoration: dashed underline;
+  }
+</style>
+
+<script define:vars={{ href }}>
+  const links = document.querySelectorAll("a");
+  links.forEach((a) => {
+    a.addEventListener("click", (e) => {
+      // alert("Going somewhere ?")
+      console.log("Link clicked, Going to ", href);
+    });
+  });
+</script>

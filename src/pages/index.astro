@@ -1,9 +1,11 @@
 ---
 import MainLayout from "@/layouts/main-layout.astro";
+import Counter from "@/components/react/counter";
 ---
 
 <MainLayout title="Home">
   <div>
     <p>Astro is Cool man</p>
+    <Counter client:load />
   </div>
 </MainLayout>
