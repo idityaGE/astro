@@ -1,16 +1,33 @@
 ---
+import Link from "@/components/astro/link.astro";
+import MainLayout from "@/layouts/main-layout.astro";
 import { getCollection } from "astro:content";
 
 const allBlogs = await getCollection("blogs");
 ---
 
-<h1>My BLogs</h1>
-<ul>
-  {
-    allBlogs.map((post) => (
-      <li>
-        <a href={`/blogs/${post.id}`}>{post.data.title}</a>
-      </li>
-    ))
-  }
-</ul>
+<MainLayout title="Blogs">
+  <h1>My BLogs</h1>
+  <ul>
+    {
+      allBlogs.map((post) => (
+        <li>
+          <Link href={`/blogs/${post.id}`}>{post.data.title}</Link>
+        </li>
+      ))
+    }
+  </ul>
+
+  <hr />
+
+  <h2>SSR Links</h2>
+  <ul>
+    {
+      allBlogs.map((post) => (
+        <li>
+          <Link href={`/blogs/ssr/${post.id}`}>{post.data.title}</Link>
+        </li>
+      ))
+    }
+  </ul>
+</MainLayout>

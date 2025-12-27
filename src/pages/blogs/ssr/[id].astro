@@ -1,0 +1,17 @@
+---
+import BlogLayout from "@/layouts/blog-layout.astro";
+import { getEntry, render } from "astro:content";
+
+const { id } = Astro.params;
+if (id === undefined) return Astro.redirect("/404");
+
+const blog = await getEntry("blogs", id);
+if (blog === undefined) return Astro.redirect("/404");
+
+const { Content } = await render(blog);
+---
+
+<BlogLayout frontmatter={blog.data}>
+  <h1>{blog.data.title}</h1>
+  <Content />
+</BlogLayout>
