@@ -1,0 +1,13 @@
+---
+import MainLayout from "./main-layout.astro";
+const { frontmatter } = Astro.props;
+---
+
+<MainLayout title={frontmatter.title}>
+  <div class="max-w-5xl mx-auto my-10">
+    <h1>{frontmatter.title}</h1>
+    <h2>Post author: {frontmatter.author}</h2>
+    <hr />
+    <slot />
+  </div>
+</MainLayout>

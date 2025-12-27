@@ -1,0 +1,18 @@
+---
+import * as Test from "@/content/test.mdx";
+import MainLayout from "@/layouts/main-layout.astro";
+---
+
+<MainLayout title="Blogs">
+  <div>
+    {JSON.stringify(Test.getHeadings())}
+    <hr />
+    {JSON.stringify(Test.file)}
+    <hr />
+    {JSON.stringify(Test.url)}
+    <hr />
+    {JSON.stringify(Test.frontmatter)}
+  </div>
+  <hr />
+  <Test.Content />
+</MainLayout>

@@ -1,0 +1,39 @@
+---
+import Link from "@/components/astro/link.astro";
+import BlogLayout from "@/layouts/blog-layout.astro";
+import { getCollection, render, getEntries } from "astro:content";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const blogs = await getCollection("blogs");
+  return blogs.map((blog) => ({
+    params: { id: blog.id },
+    props: { blog },
+  }));
+}
+
+const { blog } = Astro.props;
+
+console.log(blog.data.relatedBlogs);
+
+const realtedBlogs = await getEntries(blog.data.relatedBlogs);
+
+const { Content } = await render(blog);
+---
+
+<BlogLayout frontmatter={blog.data}>
+  <h1>{blog.data.title}</h1>
+  <Content />
+
+  <div class="mt-10">
+    <h2>You might also like:</h2>
+    {
+      realtedBlogs.map((blog) => (
+        <div>
+          <Link href={`/blogs/${blog.id}`}>{blog.data.title}</Link>
+        </div>
+      ))
+    }
+  </div>
+</BlogLayout>
