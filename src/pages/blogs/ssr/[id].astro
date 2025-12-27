@@ -6,7 +6,7 @@ const { id } = Astro.params;
 if (id === undefined) return Astro.redirect("/404");
 
 const blog = await getEntry("blogs", id);
-if (blog === undefined) return Astro.redirect("/404");
+if (blog === undefined) return Astro.rewrite("/404");
 
 const { Content } = await render(blog);
 ---

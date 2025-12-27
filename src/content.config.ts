@@ -12,7 +12,7 @@ const blogs = defineCollection({
     date: z.date(),
     author: z.string(),
     tags: z.array(z.string()),
-    image: z.string().optional(),
+    image: z.string().optional(), // https://docs.astro.build/en/guides/images/#images-in-content-collections
     relatedBlogs: z.array(reference("blogs")) // Reference an array of related posts from the `blogs` collection by `slug`
   })
 })
