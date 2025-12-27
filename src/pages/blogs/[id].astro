@@ -3,8 +3,6 @@ import Link from "@/components/astro/link.astro";
 import BlogLayout from "@/layouts/blog-layout.astro";
 import { getCollection, render, getEntries } from "astro:content";
 
-export const prerender = true;
-
 export async function getStaticPaths() {
   const blogs = await getCollection("blogs");
   return blogs.map((blog) => ({

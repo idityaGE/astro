@@ -1,10 +1,15 @@
 ---
+interface Post {
+  title: string;
+}
+
+export const prerender = false;
 const res = await fetch("https://jsonplaceholder.typicode.com/posts");
 const posts = await res.json();
 ---
 
 <div>
   <h1>Posts</h1>
-  {posts.map((post) => <p>{post.title}</p>)}
+  {posts.map((post: Post) => <p>{post.title}</p>)}
   <hr />
 </div>
