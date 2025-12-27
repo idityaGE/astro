@@ -24,7 +24,7 @@ const newsletters = defineCollection({
   }),
   schema: z.object({
     title: z.string(),
-    description: z.string().max(90, { message: "It's too fucking long bro" }),
+    description: z.string().max(100, { message: "It's too fucking long bro" }),
     date: z.date(),
   })
 })

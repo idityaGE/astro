@@ -1,0 +1,13 @@
+---
+import Link from "@/components/astro/link.astro";
+import RootLayout from "@/layouts/root-layout.astro";
+import "@/styles/globals.css";
+export const prerender = true;
+---
+
+<RootLayout title="error">
+  <div class="flex flex-col w-full justify-center items-center min-h-screen">
+    <h1 class="text-5xl">Look Like you did something wrong ? huh !!</h1>
+    <Link href="/" class="mt-10 border-2 rounded-md p-4">Go Back</Link>
+  </div>
+</RootLayout>
