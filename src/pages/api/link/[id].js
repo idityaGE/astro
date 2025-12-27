@@ -1,3 +1,5 @@
+export const prerender = false;
+
 const getLinkUrl = async (id) => {
     return new Promise((resolve) => {
         // Simulate database lookup
