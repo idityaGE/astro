@@ -5,7 +5,7 @@ import Link from "@/components/astro/link.astro";
 import MainLayout from "@/layouts/main-layout.astro";
 import { getSecret } from "astro:env/server";
 
-let counter = 0;
+let counter;
 
 const env = getSecret("NODE_ENV"); // env on server
 console.log(env);
@@ -13,10 +13,10 @@ console.log(env);
 if (Astro.cookies.has("counter")) {
   const cookie = Astro.cookies.get("counter");
   const value = cookie?.number();
-  if (value !== undefined && !isNaN(value)) counter = value + 1;
+  if (value !== undefined && !isNaN(value)) counter = value;
 }
 
-Astro.cookies.set("counter", String(counter));
+// Astro.cookies.set("counter", String(counter));
 
 // Astro.request
 // Astro.response
@@ -24,7 +24,9 @@ Astro.cookies.set("counter", String(counter));
 
 <MainLayout title="About">
   About page
-  <h1>Counter = {counter}</h1>
+  <h1>
+    Counter = {counter} (middleware is increasing this counter on every request)
+  </h1>
   <br />
   <Link href="/">Go Back</Link>
 </MainLayout>

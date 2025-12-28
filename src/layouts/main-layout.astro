@@ -11,9 +11,9 @@ const { title } = Astro.props;
     <div>
       <a href="/">Logo</a>
     </div>
-    <div class="flex gap-8 justify-center">
-      <a href="/about">About</a>
-      <a href="/blogs">Blogs</a>
+    <div class="flex gap-8 justify-center uppercase font-mono">
+      <a href="/about" class="hover:underline">About</a>
+      <a href="/blogs" class="hover:underline">Blogs</a>
       <ModeToggle client:load />
     </div>
   </nav>
