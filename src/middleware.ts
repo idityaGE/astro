@@ -1,4 +1,6 @@
-import { defineMiddleware } from "astro:middleware";
+import { defineMiddleware, sequence } from "astro:middleware";
+
+// https://docs.astro.build/en/guides/middleware/
 
 export const onRequest = defineMiddleware(async (context, next) => {
   // do what you want to do 
@@ -12,5 +14,54 @@ export const onRequest = defineMiddleware(async (context, next) => {
   count = count + 1;
   context.cookies.set("counter", count.toString())
 
-  return next()
-}) 
+  context.locals.user = {
+    name: "Aditya Maurya",
+    email: "idityage@gmail.com",
+    age: 20,
+    single: true
+  }
+
+  context.locals.welcomeTitle = () => {
+    return "Hello, My name is Aditya"
+  }
+
+  return next() // this accept same playload of `Astro.rewrite()` function means It can redirect
+})
+
+// ==========================
+// =  Chaining Middleware   =
+// ==========================
+
+// async function validation(_, next) {
+//   console.log("validation request");
+//   const response = await next();
+//   console.log("validation response");
+//   return response;
+// }
+
+// async function auth(_, next) {
+//   console.log("auth request");
+//   const response = await next();
+//   console.log("auth response");
+//   return response;
+// }
+
+// async function greeting(_, next) {
+//   console.log("greeting request");
+//   const response = await next();
+//   console.log("greeting response");
+//   return response;
+// }
+
+// export const onRequest = sequence(validation, auth, greeting);
+
+// =======================
+//         Output 
+// =======================
+
+// validation request
+// auth request
+// greeting request
+// greeting response
+// auth response
+// validation response

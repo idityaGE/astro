@@ -3,6 +3,8 @@ import MainLayout from "@/layouts/main-layout.astro";
 import Counter from "@/components/react/counter";
 import { Image } from "astro:assets";
 import Profile from "@/assets/output.webp";
+
+const { user } = Astro.locals;
 ---
 
 <MainLayout title="Home">
@@ -18,4 +20,9 @@ import Profile from "@/assets/output.webp";
     width={Profile.width}
     height={Profile.height}
   /> -->
+
+  <div class="mt-10">
+    <p>Details from locals (middleware)</p>
+    {JSON.stringify(user, null, 2)}
+  </div>
 </MainLayout>
