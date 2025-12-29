@@ -7,6 +7,11 @@ import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
+  prefetch: {
+    defaultStrategy: "hover", // Options: "hover", "viewport", "tap", "load"
+    // prefetchAll: true, // Uncomment to prefetch all links
+  },
+
   output: 'static',
 
   image: {

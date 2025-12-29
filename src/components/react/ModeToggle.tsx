@@ -11,21 +11,25 @@ import {
 
 export function ModeToggle() {
   const [theme, setThemeState] = React.useState<
-    "theme-light" | "dark" | "system"
-  >("theme-light")
+    "light" | "dark" | "system"
+  >(() => {
+    if (typeof localStorage !== "undefined") {
+      return (localStorage.getItem("theme") as "light" | "dark" | "system") || "light"
+    }
+    return "light"
+  })
 
-  React.useEffect(() => {
-    const isDarkMode = document.documentElement.classList.contains("dark")
-    setThemeState(isDarkMode ? "dark" : "theme-light")
-  }, [])
+  const setTheme = (newTheme: "light" | "dark" | "system") => {
+    setThemeState(newTheme)
 
-  React.useEffect(() => {
     const isDark =
-      theme === "dark" ||
-      (theme === "system" &&
+      newTheme === "dark" ||
+      (newTheme === "system" &&
         window.matchMedia("(prefers-color-scheme: dark)").matches)
+
     document.documentElement.classList[isDark ? "add" : "remove"]("dark")
-  }, [theme])
+    localStorage.setItem("theme", isDark ? "dark" : "light")
+  }
 
   return (
     <DropdownMenu>
@@ -37,13 +41,13 @@ export function ModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setThemeState("theme-light")}>
+        <DropdownMenuItem onClick={() => setTheme("light")}>
           Light
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setThemeState("dark")}>
+        <DropdownMenuItem onClick={() => setTheme("dark")}>
           Dark
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setThemeState("system")}>
+        <DropdownMenuItem onClick={() => setTheme("system")}>
           System
         </DropdownMenuItem>
       </DropdownMenuContent>

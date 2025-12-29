@@ -25,8 +25,16 @@ const { title } = Astro.props;
       ? "dark"
       : "light";
   };
-  const isDark = getThemePreference() === "dark";
-  document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+  
+  const applyTheme = () => {
+    const isDark = getThemePreference() === "dark";
+    document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+  };
+  applyTheme();
+  document.addEventListener("astro:before-swap", (event) => {
+    const isDark = getThemePreference() === "dark";
+    event.newDocument.documentElement.classList[isDark ? "add" : "remove"]("dark");
+  });
 
   if (typeof localStorage !== "undefined") {
     const observer = new MutationObserver(() => {

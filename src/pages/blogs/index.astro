@@ -12,7 +12,9 @@ const allBlogs = await getCollection("blogs");
     {
       allBlogs.map((post) => (
         <li>
-          <Link href={`/blogs/${post.id}`}>{post.data.title}</Link>
+          <Link href={`/blogs/${post.id}`} class="blog-link">
+            {post.data.title}
+          </Link>
         </li>
       ))
     }
@@ -31,3 +33,15 @@ const allBlogs = await getCollection("blogs");
     }
   </ul>
 </MainLayout>
+
+<script define:vars={{ allBlogs }}>
+  import { prefetch } from "astro:prefetch"; // doing programatically
+
+  const blogLinks = document.querySelectorAll(".blog-link");
+
+  blogLinks.forEach((link, index) => {
+    link.addEventListener("click", () => { // "mouseenter"
+      prefetch(`/blogs/${allBlogs[index].id}`, { ignoreSlowConnection: true });
+    });
+  });
+</script>
