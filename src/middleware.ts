@@ -12,6 +12,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   }
 
   count = count + 1;
+  console.log("request comes from", context.url.pathname, "\ncount", count);
   context.cookies.set("counter", count.toString())
 
   context.locals.user = {
@@ -25,7 +26,14 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return "Hello, My name is Aditya"
   }
 
-  return next() // this accept same playload of `Astro.rewrite()` function means It can redirect
+  const response = await next();
+
+  // Cache HTML pages for 5 minutes (browser will reuse cached pages)
+  if (response.headers.get("content-type")?.includes("text/html")) {
+    response.headers.set("Cache-Control", "private, max-age=300");
+  }
+
+  return response;
 })
 
 // ==========================

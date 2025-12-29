@@ -1,5 +1,6 @@
 ---
 import "@/styles/globals.css";
+import { ClientRouter } from "astro:transitions";
 const { title } = Astro.props;
 ---
 
@@ -10,6 +11,7 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <ClientRouter />
   </head>
   <body>
     <slot> Nothing is provided in the root-layout </slot>

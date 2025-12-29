@@ -1,10 +1,10 @@
 ---
 import { ModeToggle } from "@/components/react/ModeToggle";
-import { ClientRouter } from "astro:transitions";
 ---
 
 <nav
   class="flex flex-row px-10 justify-between items-baseline w-full my-3 border-y py-3"
+  transition:persist
 >
   <div>
     <a href="/">Logo</a>
@@ -12,8 +12,6 @@ import { ClientRouter } from "astro:transitions";
   <div class="flex gap-8 justify-center uppercase font-mono">
     <a href="/about" class="hover:underline" data-astro-prefetch>About</a>
     <a href="/blogs" class="hover:underline" data-astro-prefetch>Blogs</a>
-    <ModeToggle client:load transition:persist />
+    <ModeToggle client:load />
   </div>
 </nav>
-
-<ClientRouter />
