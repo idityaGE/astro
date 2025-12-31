@@ -2,6 +2,9 @@ import { defineMiddleware, sequence } from "astro:middleware";
 
 // https://docs.astro.build/en/guides/middleware/
 
+// this will run at build time 
+// and on request to the SSR pages on the server
+
 export const onRequest = defineMiddleware(async (context, next) => {
   // do what you want to do 
   let count = 0;
@@ -12,7 +15,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   }
 
   count = count + 1;
-  console.log("request comes from", context.url.pathname, "\ncount", count);
+  // console.log("request comes from", context.url.pathname, "\ncount", count);
   context.cookies.set("counter", count.toString())
 
   context.locals.user = {

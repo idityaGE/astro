@@ -1,6 +1,13 @@
 ---
+import type { MarkdownLayoutProps } from "astro";
 import MainLayout from "./main-layout.astro";
-const { frontmatter } = Astro.props;
+
+type Props = MarkdownLayoutProps<{
+  title: string;
+  author: string;
+}>;
+
+const { frontmatter, url } = Astro.props;
 ---
 
 <MainLayout title={frontmatter.title}>

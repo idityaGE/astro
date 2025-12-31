@@ -1,7 +1,10 @@
 ---
+interface Props {
+  title?: string;
+}
 import "@/styles/globals.css";
 import { ClientRouter } from "astro:transitions";
-const { title } = Astro.props;
+const { title = "title not provided" } = Astro.props;
 ---
 
 <html lang="en">
@@ -14,7 +17,9 @@ const { title } = Astro.props;
     <ClientRouter />
   </head>
   <body>
-    <slot> Nothing is provided in the root-layout </slot>
+    <slot name="body">
+      <p>Nothing is provided in the root-layout</p>
+    </slot>
   </body>
 </html>
 
@@ -27,7 +32,7 @@ const { title } = Astro.props;
       ? "dark"
       : "light";
   };
-  
+
   const applyTheme = () => {
     const isDark = getThemePreference() === "dark";
     document.documentElement.classList[isDark ? "add" : "remove"]("dark");
@@ -35,7 +40,9 @@ const { title } = Astro.props;
   applyTheme();
   document.addEventListener("astro:before-swap", (event) => {
     const isDark = getThemePreference() === "dark";
-    event.newDocument.documentElement.classList[isDark ? "add" : "remove"]("dark");
+    event.newDocument.documentElement.classList[isDark ? "add" : "remove"](
+      "dark"
+    );
   });
 
   if (typeof localStorage !== "undefined") {

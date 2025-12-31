@@ -1,0 +1,17 @@
+---
+import CustomTable from "./CustomTable.astro";
+---
+
+<CustomTable>
+  <Fragment slot="header">
+    <!-- pass table header -->
+    <tr><th>Product name</th><th>Stock units</th></tr>
+  </Fragment>
+
+  <Fragment slot="body">
+    <!-- pass table body -->
+    <tr><td>Flip-flops</td><td>64</td></tr>
+    <tr><td>Boots</td><td>32</td></tr>
+    <tr><td>Sneakers</td><td class="text-red-500">0</td></tr>
+  </Fragment>
+</CustomTable>
