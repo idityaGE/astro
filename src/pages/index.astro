@@ -4,31 +4,51 @@ import Counter from "@/components/react/counter";
 import { Image } from "astro:assets";
 import Profile from "@/assets/output.webp";
 import StockTable from "@/components/astro/StockTable.astro";
+import Server from "@/components/astro/server.astro";
 
 const { user } = Astro.locals;
 ---
 
 <MainLayout title="Home">
-  <div>
-    <p>Astro is Cool man</p>
-    <Counter client:load />
-  </div>
+    <div>
+        <p>Astro is Cool man</p>
+        <Counter client:load />
+    </div>
 
-  <Image src={Profile} alt="Profile Image" width="50" height="50" />
-  <!-- <img
+    <Image src={Profile} alt="Profile Image" width="50" height="50" />
+    <!-- <img
     src={Profile.src}
     alt="Profile Image"
     width={Profile.width}
     height={Profile.height}
   /> -->
 
-  <div class="mt-10">
-    <p>Details from locals (middleware)</p>
-    {JSON.stringify(user, null, 2)}
-  </div>
+    <div class="mt-10">
+        <p>Details from locals (middleware)</p>
+        {JSON.stringify(user, null, 2)}
+    </div>
 
-  <div class="mt-10">
-    <p>Named Slots exaple with Fragment </p>
-    <StockTable /> 
-  </div>
+    <div class="mt-10">
+        <p>Named Slots exaple with Fragment</p>
+        <StockTable />
+    </div>
+
+    <div class="mt-10 border p-4">
+        <p>Server Island</p>
+        <Server
+            server:defer
+            testing="Browser only allow max of 2048 bytes for the url. so don't pass the data more than that else it will use POST method under the hood. then caching will not work properly as POST method are cached by browser (only GET)."
+        >
+            <div class="animate-pulse space-y-4" slot="fallback">
+                <div class="h-8 bg-muted rounded w-1/2"></div>
+                <ul class="space-y-2">
+                    {
+                        [1, 2, 3].map(() => (
+                            <li class="h-6 bg-muted rounded w-1/4" />
+                        ))
+                    }
+                </ul>
+            </div>
+        </Server>
+    </div>
 </MainLayout>

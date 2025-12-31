@@ -1,0 +1,26 @@
+---
+export const prerender = false;
+
+const getData = async () => {
+  await new Promise((res) => {
+    setTimeout(() => res(""), 3000);
+  });
+
+  return ["Aditya", "Dimas", "Gilang"];
+};
+const data = await getData();
+
+const { testing } = Astro.props;
+
+const ref = Astro.request.headers.get("Referer");
+if (!ref) {
+  throw new Error("No referer header found");
+}
+const url = new URL(ref);
+---
+
+<h1>Server Component Data : {url.href}</h1>
+<kbd class="border">{testing}</kbd>
+<ul>
+  {data.map((name) => <li>{name}</li>)}
+</ul>
